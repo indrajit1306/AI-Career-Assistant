@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Palette */
+  --color-brand-50: #F8FAFC;
+  --color-brand-100: #E0F2FE;
+  --color-brand-200: #BAE6FD;
+  --color-brand-300: #7DD3FC;
+  --color-brand-400: #38BDF8;
+  --color-brand-500: #0EA5E9;
+  --color-brand-600: #0284C7;
+  --color-brand-700: #1D4ED8;
+  --color-brand-800: #172554;
+  --color-brand-900: #0F172A;
+  --color-brand-950: #020617;
+
+  /* Semantic Colors */
+  --color-bg-base: var(--color-brand-950);
+  --color-surface: var(--color-brand-900);
+  --color-surface-elevated: var(--color-brand-800);
+  --color-text-primary: var(--color-brand-50);
+  --color-text-secondary: var(--color-brand-200);
+  --color-text-muted: var(--color-brand-400);
+  --color-border-base: var(--color-brand-800);
+  --color-action-primary: var(--color-brand-700);
+  --color-action-hover: var(--color-brand-600);
+  
+  /* Status Colors */
+  --color-success: #10B981; /* Emerald 500 */
+  --color-warning: #F59E0B; /* Amber 500 */
+  --color-error: #EF4444;   /* Red 500 */
+  
+  /* Utilities */
+  --color-focus-ring: var(--color-brand-400);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+  }
+
+  /* Typography Scale base overrides if necessary. 
+     We are relying on Tailwind's default sans, which maps well to standard system fonts */
+}
+
+@layer utilities {
+  /* Glassmorphism */
+  .glass-surface {
+    @apply bg-surface/50 backdrop-blur-md border border-brand-800/50 shadow-lg;
+    /* Fallback for browsers without backdrop-filter */
+    @supports not (backdrop-filter: blur(1px)) {
+      @apply bg-surface;
+    }
+  }
+
+  .glass-panel {
+    @apply bg-brand-950/40 backdrop-blur-xl border border-brand-700/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+    @supports not (backdrop-filter: blur(1px)) {
+      @apply bg-brand-900;
+    }
+  }
+
+  /* 3D Visual Language */
+  .perspective-container {
+    perspective: 1000px;
+  }
+
+  .tilt-element {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .layered-depth {
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .gradient-orb {
+    @apply absolute rounded-full opacity-20 blur-3xl pointer-events-none;
+    background: radial-gradient(circle, var(--color-brand-400) 0%, transparent 70%);
+  }
+
+  /* Custom focus outline */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-focus-ring focus:ring-offset-2 focus:ring-offset-bg-base;
+  }
+}
