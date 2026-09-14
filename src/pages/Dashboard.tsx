@@ -1,39 +1,70 @@
-import React from 'react';
-import { Heading } from '../components/ui/Heading';
-import { Card } from '../components/ui/Card';
-import { EmptyState } from '../components/ui/EmptyState';
-import { LayoutDashboard } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { DashboardWelcome } from '../components/dashboard/DashboardWelcome';
+import { OverviewStatCard } from '../components/dashboard/OverviewStatCard';
+import { CareerProgress } from '../components/dashboard/CareerProgress';
+import { QuickActions } from '../components/dashboard/QuickActions';
+import { GettingStarted } from '../components/dashboard/GettingStarted';
+import { RecentActivity } from '../components/dashboard/RecentActivity';
+import { animateStagger } from '../animations';
+import { FileText, Briefcase, MessageSquare, Target } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const cards = containerRef.current.querySelectorAll('.dash-card');
+      animateStagger(Array.from(cards), { y: 20, delay: 0.1 });
+    }
+  }, []);
+
   return (
-    <div className="space-y-6">
-      <header>
-        <Heading level={1}>Dashboard</Heading>
-        <p className="text-text-secondary mt-1">Welcome to your AI Career Assistant dashboard.</p>
-      </header>
+    <div className="space-y-8 pb-8" ref={containerRef}>
+      <DashboardWelcome />
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="hover:border-brand-500/50 transition-colors">
-          <h3 className="font-semibold text-text-primary">Resumes</h3>
-          <p className="text-3xl font-bold text-brand-400 mt-2">0</p>
-        </Card>
-        <Card className="hover:border-brand-500/50 transition-colors">
-          <h3 className="font-semibold text-text-primary">Jobs Analyzed</h3>
-          <p className="text-3xl font-bold text-brand-400 mt-2">0</p>
-        </Card>
-        <Card className="hover:border-brand-500/50 transition-colors">
-          <h3 className="font-semibold text-text-primary">Interviews Prep</h3>
-          <p className="text-3xl font-bold text-brand-400 mt-2">0</p>
-        </Card>
-      </div>
-      
-      <Card elevated className="min-h-[300px] flex items-center justify-center">
-        <EmptyState 
-          icon={<LayoutDashboard size={32} />}
-          title="No Recent Activity"
-          description="Your activity chart and insights will appear here once you start using the tools."
+      {/* Overview Cards */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <OverviewStatCard 
+          icon={<FileText size={24} />}
+          label="Resume Score"
+          value="--"
+          description="Demo value"
         />
-      </Card>
+        <OverviewStatCard 
+          icon={<Briefcase size={24} />}
+          label="Jobs Analyzed"
+          value="0"
+          description="Demo value"
+        />
+        <OverviewStatCard 
+          icon={<MessageSquare size={24} />}
+          label="Interviews Practiced"
+          value="0"
+          description="Demo value"
+        />
+        <OverviewStatCard 
+          icon={<Target size={24} />}
+          label="Applications Tracked"
+          value="0"
+          description="Demo value"
+        />
+      </section>
+
+      {/* Progress & Getting Started */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <CareerProgress />
+        </div>
+        <div className="lg:col-span-1">
+          <GettingStarted />
+        </div>
+      </section>
+
+      {/* Quick Actions & Recent Activity */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <QuickActions />
+        <RecentActivity />
+      </section>
     </div>
   );
 };
