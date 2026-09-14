@@ -3,7 +3,6 @@ import { Heading } from '../components/ui/Heading';
 import { GlassCard } from '../components/ui/GlassCard';
 import { EmptyState } from '../components/ui/EmptyState';
 import { CheckCircle } from 'lucide-react';
-import { Button } from '../components/ui/Button';
 
 export const ATS: React.FC = () => {
   return (
@@ -16,9 +15,8 @@ export const ATS: React.FC = () => {
       <GlassCard className="flex-1 flex items-center justify-center">
         <EmptyState 
           icon={<CheckCircle size={32} />}
-          title="ATS Analyzer Placeholder"
-          description="ATS functionality will be implemented here."
-          action={<Button variant="primary">Run ATS Check</Button>}
+          title="ATS Analyzer"
+          description="ATS scoring will be implemented in a later step. You will receive actionable feedback on readability, keyword optimization, and formatting."
         />
       </GlassCard>
     </div>
