@@ -49,6 +49,7 @@ export const EducationForm: React.FC<Props> = ({ education, onChange }) => {
         {education.map((edu) => (
           <div key={edu.id} className="p-4 rounded-lg bg-surface border border-border-base relative group">
             <button 
+              type="button"
               onClick={() => handleRemove(edu.id)}
               className="absolute top-4 right-4 text-text-muted hover:text-red-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 rounded"
               title="Remove Education"
