@@ -29,19 +29,25 @@ export const SkillsForm: React.FC<Props> = ({ skills, onChange }) => {
     <GlassCard padding="lg" className="mb-6">
       <Heading level={3} className="mb-4">Skills</Heading>
       
-      <form onSubmit={handleAdd} className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-6">
         <div className="flex-1">
           <Input 
             value={newSkill}
             onChange={(e) => setNewSkill(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleAdd();
+              }
+            }}
             placeholder="E.g. React, TypeScript, Python..."
           />
         </div>
-        <Button type="submit" variant="secondary" className="mt-6 flex items-center gap-2 px-4">
+        <Button type="button" onClick={handleAdd} variant="secondary" className="mt-6 flex items-center gap-2 px-4">
           <Plus size={18} />
           <span className="hidden sm:inline">Add</span>
         </Button>
-      </form>
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {skills.map((skill) => (
