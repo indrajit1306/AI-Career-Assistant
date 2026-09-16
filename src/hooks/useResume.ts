@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { INITIAL_RESUME_DATA } from '../types/resume';
 import type { ResumeData } from '../types/resume';
 
@@ -60,6 +60,17 @@ export const useResume = () => {
       console.error('Failed to save resume draft', e);
     }
   }, [data]);
+
+  // Auto-save functionality
+  useEffect(() => {
+    if (hasUnsavedChanges) {
+      const timeoutId = setTimeout(() => {
+        saveDraft();
+      }, 1000); // Auto-save after 1 second of inactivity
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [data, hasUnsavedChanges, saveDraft]);
 
   const resetResume = useCallback(() => {
     setData(INITIAL_RESUME_DATA);
