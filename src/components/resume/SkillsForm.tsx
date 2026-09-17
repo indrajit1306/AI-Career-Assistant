@@ -4,6 +4,11 @@ import { Heading } from '../ui/Heading';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { X, Plus } from 'lucide-react';
+import { AIAssistButton } from './AIAssistButton';
+import { SuggestionPanel } from './SuggestionPanel';
+import { aiClient } from '../../services/ai';
+import type { ResumeImprovementResult } from '../../services/ai';
+import type { ResumeData } from '../../types/resume';
 
 interface Props {
   skills: string[];
@@ -12,23 +17,75 @@ interface Props {
 
 export const SkillsForm: React.FC<Props> = ({ skills, onChange }) => {
   const [newSkill, setNewSkill] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [suggestion, setSuggestion] = useState<ResumeImprovementResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [provider, setProvider] = useState<string>('');
 
   const handleAdd = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (newSkill.trim() && !skills.includes(newSkill.trim())) {
       onChange([...skills, newSkill.trim()]);
       setNewSkill('');
+      setSuggestion(null);
     }
   };
 
   const handleRemove = (skillToRemove: string) => {
     onChange(skills.filter(skill => skill !== skillToRemove));
+    setSuggestion(null);
+  };
+
+  const handleImprove = async () => {
+    if (skills.length === 0) return;
+    
+    setIsProcessing(true);
+    setError(null);
+    setSuggestion(null);
+
+    const result = await aiClient.improveResume({
+      resume: { skills } as ResumeData,
+      focusArea: 'skills'
+    });
+
+    if (result.success && result.data) {
+      setSuggestion(result.data);
+      setProvider(result.provider);
+    } else {
+      setError(result.error || 'Failed to generate improvements.');
+    }
+    
+    setIsProcessing(false);
+  };
+
+  const handleAccept = () => {
+    if (suggestion?.improvedContent.skills) {
+      onChange(suggestion.improvedContent.skills);
+      setSuggestion(null);
+    }
+  };
+
+  const handleReject = () => {
+    setSuggestion(null);
   };
 
   return (
     <GlassCard padding="lg" className="mb-6">
-      <Heading level={3} className="mb-4">Skills</Heading>
+      <div className="flex justify-between items-center mb-4">
+        <Heading level={3}>Skills</Heading>
+        <AIAssistButton 
+          onClick={handleImprove} 
+          isProcessing={isProcessing} 
+          disabled={skills.length === 0} 
+        />
+      </div>
       
+      {error && (
+        <div className="mb-4 p-3 rounded bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+          {error}
+        </div>
+      )}
+
       <div className="flex gap-2 mb-6">
         <div className="flex-1">
           <Input 
@@ -49,7 +106,7 @@ export const SkillsForm: React.FC<Props> = ({ skills, onChange }) => {
         </Button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 mb-4">
         {skills.map((skill) => (
           <div key={skill} className="flex items-center gap-2 px-3 py-1.5 bg-surface-elevated border border-border-base rounded-full">
             <span className="text-sm text-text-primary">{skill}</span>
@@ -67,6 +124,17 @@ export const SkillsForm: React.FC<Props> = ({ skills, onChange }) => {
           <p className="text-sm text-text-muted w-full text-center py-2">No skills added yet.</p>
         )}
       </div>
+
+      {suggestion && suggestion.improvedContent.skills && (
+        <SuggestionPanel
+          originalText={skills.join(', ')}
+          suggestedText={suggestion.improvedContent.skills.join(', ')}
+          suggestions={suggestion.suggestions}
+          provider={provider}
+          onAccept={handleAccept}
+          onReject={handleReject}
+        />
+      )}
     </GlassCard>
   );
 };
