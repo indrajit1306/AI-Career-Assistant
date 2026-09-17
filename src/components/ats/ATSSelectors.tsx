@@ -12,6 +12,8 @@ interface Props {
   onJobSelect: (id: string) => void;
   onAnalyze: () => void;
   isAnalyzing: boolean;
+  onRunAIMatch: () => void;
+  isMatchingAI: boolean;
   resumeData: ResumeData;
 }
 
@@ -21,6 +23,8 @@ export const ATSSelectors: React.FC<Props> = ({
   onJobSelect, 
   onAnalyze, 
   isAnalyzing,
+  onRunAIMatch,
+  isMatchingAI,
   resumeData
 }) => {
   return (
@@ -68,23 +72,44 @@ export const ATSSelectors: React.FC<Props> = ({
           </select>
         </div>
 
-        <Button 
-          onClick={onAnalyze} 
-          disabled={!selectedJobId || isAnalyzing}
-          size="lg"
-          className="w-full md:w-auto min-w-[140px] flex gap-2"
-        >
-          {isAnalyzing ? (
-            <>
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-              Analyzing...
-            </>
-          ) : (
-            <>
-              <Play size={18} /> Analyze
-            </>
-          )}
-        </Button>
+        <div className="flex flex-col gap-2 w-full md:w-auto">
+          <Button 
+            onClick={onAnalyze} 
+            disabled={!selectedJobId || isAnalyzing}
+            size="lg"
+            className="w-full min-w-[140px] flex gap-2"
+          >
+            {isAnalyzing ? (
+              <>
+                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                Analyzing...
+              </>
+            ) : (
+              <>
+                <Play size={18} /> Analyze
+              </>
+            )}
+          </Button>
+
+          <Button 
+            onClick={onRunAIMatch} 
+            disabled={!selectedJobId || isMatchingAI}
+            variant="outline"
+            size="lg"
+            className="w-full min-w-[140px] flex gap-2 border-brand-500 text-brand-400 hover:bg-brand-500/10"
+          >
+            {isMatchingAI ? (
+              <>
+                <span className="w-5 h-5 border-2 border-brand-500/30 border-t-brand-500 rounded-full animate-spin"></span>
+                Matching...
+              </>
+            ) : (
+              <>
+                <Play size={18} /> Run AI Match
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </GlassCard>
   );
