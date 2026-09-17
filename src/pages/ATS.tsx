@@ -11,7 +11,11 @@ import { KeywordComparison } from '../components/ats/KeywordComparison';
 import { FormattingChecks } from '../components/ats/FormattingChecks';
 import { ATSRecommendations } from '../components/ats/ATSRecommendations';
 import { AnalysisHistory } from '../components/ats/AnalysisHistory';
+import { ResumeMatchPanel } from '../components/ats/ResumeMatchPanel';
 import { animateFadeIn, animateStagger } from '../animations';
+import { useState } from 'react';
+import { useAIAnalyses } from '../hooks/useAIAnalyses';
+import { aiClient } from '../services/ai/aiClient';
 
 export const ATS: React.FC = () => {
   const {
@@ -27,6 +31,9 @@ export const ATS: React.FC = () => {
     resumeData
   } = useATS();
 
+  const [isMatchingAI, setIsMatchingAI] = useState(false);
+  const { resumeMatches, saveResumeMatch } = useAIAnalyses();
+
   const containerRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +48,26 @@ export const ATS: React.FC = () => {
       animateStagger(Array.from(resultsRef.current.children) as HTMLElement[], { y: 20, duration: 0.4, stagger: 0.1 });
     }
   }, [currentResult]);
+
+  const handleRunAIMatch = async () => {
+    if (!selectedJobId || !resumeData) return;
+    
+    const job = jobs.find(j => j.id === selectedJobId);
+    if (!job) return;
+
+    setIsMatchingAI(true);
+    try {
+      const result = await aiClient.matchResumeToJob({
+        resume: resumeData,
+        jobDescription: job.description
+      });
+      if (result.success && result.data) {
+        saveResumeMatch(job.id, result.data);
+      }
+    } finally {
+      setIsMatchingAI(false);
+    }
+  };
 
   return (
     <div className="space-y-6 h-full flex flex-col pb-12" ref={containerRef}>
@@ -62,6 +89,8 @@ export const ATS: React.FC = () => {
         onJobSelect={setSelectedJobId}
         onAnalyze={analyze}
         isAnalyzing={isAnalyzing}
+        onRunAIMatch={handleRunAIMatch}
+        isMatchingAI={isMatchingAI}
         resumeData={resumeData}
       />
 
@@ -85,6 +114,10 @@ export const ATS: React.FC = () => {
             <FormattingChecks formattingChecks={currentResult.formattingChecks} />
             <ATSRecommendations recommendations={currentResult.recommendations} />
           </div>
+
+          {resumeMatches[selectedJobId] && (
+            <ResumeMatchPanel result={resumeMatches[selectedJobId]} />
+          )}
         </div>
       ) : (
         <GlassCard className="flex-1 flex items-center justify-center min-h-[400px]">
