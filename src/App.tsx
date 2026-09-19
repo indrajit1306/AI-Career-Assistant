@@ -6,6 +6,7 @@ import { Resume } from './pages/Resume';
 import { Jobs } from './pages/Jobs';
 import { ATS } from './pages/ATS';
 import { Interview } from './pages/Interview';
+import { Assistant } from './pages/Assistant';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* App Shell routes */}
         <Route element={<AppShell />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/assistant" element={<Assistant />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/ats" element={<ATS />} />
