@@ -5,6 +5,8 @@ import {
   Briefcase, 
   CheckCircle, 
   MessageSquare,
+  Bot,
+  Settings,
   LogOut
 } from 'lucide-react';
 import type { HTMLAttributes } from 'react';
@@ -16,10 +18,12 @@ export interface SidebarProps extends HTMLAttributes<HTMLElement> {
 export const Sidebar: React.FC<SidebarProps> = ({ className = '', onNavigate, ...props }) => {
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'AI Assistant', path: '/assistant', icon: <Bot size={20} /> },
     { name: 'Resume', path: '/resume', icon: <FileText size={20} /> },
     { name: 'Job Analyzer', path: '/jobs', icon: <Briefcase size={20} /> },
     { name: 'ATS Check', path: '/ats', icon: <CheckCircle size={20} /> },
     { name: 'Interview Prep', path: '/interview', icon: <MessageSquare size={20} /> },
+    { name: 'Settings', path: '/settings', icon: <Settings size={20} /> },
   ];
 
   return (
