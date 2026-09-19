@@ -7,6 +7,7 @@ import { Jobs } from './pages/Jobs';
 import { ATS } from './pages/ATS';
 import { Interview } from './pages/Interview';
 import { Assistant } from './pages/Assistant';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/ats" element={<ATS />} />
           <Route path="/interview" element={<Interview />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>
