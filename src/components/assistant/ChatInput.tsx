@@ -45,6 +45,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, isProcessin
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Ask a career question..."
+          maxLength={2000}
           className="flex-1 max-h-[120px] bg-transparent border-0 focus:ring-0 resize-none p-2 text-sm text-text-primary placeholder:text-text-muted outline-none"
           rows={1}
           disabled={disabled || isProcessing}
