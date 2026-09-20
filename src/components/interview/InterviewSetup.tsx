@@ -6,6 +6,7 @@ import type { InterviewCategory, InterviewDifficulty, InterviewQuestion } from '
 import type { Job } from '../../types/job';
 import type { ResumeData } from '../../types/resume';
 import { aiClient } from '../../services/ai/aiClient';
+import { safeGet, STORAGE_KEYS } from '../../utils/storage';
 
 interface InterviewSetupProps {
   onStart: (
@@ -40,21 +41,17 @@ export const InterviewSetup: React.FC<InterviewSetupProps> = ({ onStart }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    try {
-      const storedJobs = localStorage.getItem('aca_jobs');
-      if (storedJobs) {
-        const parsed = JSON.parse(storedJobs);
-        setJobs(parsed);
-        if (parsed.length > 0) {
-          setSelectedJobId(parsed[0].id);
-        }
+    const storedJobs = safeGet<Job[]>(STORAGE_KEYS.JOBS);
+    if (storedJobs) {
+      setJobs(storedJobs);
+      if (storedJobs.length > 0) {
+        setSelectedJobId(storedJobs[0].id);
       }
-      const storedResume = localStorage.getItem('aca_resume');
-      if (storedResume) {
-        setResumeData(JSON.parse(storedResume));
-      }
-    } catch (err) {
-      console.error('Failed to load storage for interview setup', err);
+    }
+    
+    const storedResume = safeGet<ResumeData>(STORAGE_KEYS.RESUME);
+    if (storedResume) {
+      setResumeData(storedResume);
     }
   }, []);
 
