@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Palette */
   --color-brand-50: #F8FAFC;
   --color-brand-100: #E0F2FE;
   --color-brand-200: #BAE6FD;
@@ -12,46 +11,86 @@
   --color-brand-700: #1D4ED8;
   --color-brand-800: #172554;
   --color-brand-900: #0F172A;
+  --color-brand-925: #0F172A;
   --color-brand-950: #020617;
 
-  /* Semantic Colors */
-  --color-bg-base: var(--color-brand-950);
-  --color-surface: var(--color-brand-900);
-  --color-surface-elevated: var(--color-brand-800);
-  --color-text-primary: var(--color-brand-50);
-  --color-text-secondary: var(--color-brand-200);
-  --color-text-muted: var(--color-brand-400);
-  --color-border-base: var(--color-brand-800);
-  --color-action-primary: var(--color-brand-700);
-  --color-action-hover: var(--color-brand-600);
+  /* Semantic Theme Variables mapped to utilities */
+  --color-bg-base: var(--app-bg-base);
+  --color-surface: var(--app-surface);
+  --color-surface-elevated: var(--app-surface-elevated);
+  --color-text-primary: var(--app-text-primary);
+  --color-text-secondary: var(--app-text-secondary);
+  --color-text-muted: var(--app-text-muted);
+  --color-border-base: var(--app-border-base);
+  --color-action-primary: var(--app-action-primary);
+  --color-action-hover: var(--app-action-hover);
+  --color-focus-ring: var(--app-focus-ring);
   
-  /* Status Colors */
-  --color-success: #10B981; /* Emerald 500 */
-  --color-warning: #F59E0B; /* Amber 500 */
-  --color-error: #EF4444;   /* Red 500 */
-  
-  /* Utilities */
-  --color-focus-ring: var(--color-brand-400);
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
 }
 
 @layer base {
   :root {
+    /* Default is dark */
     color-scheme: dark;
+    --app-bg-base: var(--color-brand-950);
+    --app-surface: var(--color-brand-900);
+    --app-surface-elevated: var(--color-brand-800);
+    --app-text-primary: var(--color-brand-50);
+    --app-text-secondary: var(--color-brand-200);
+    --app-text-muted: var(--color-brand-400);
+    --app-border-base: var(--color-brand-800);
+    --app-action-primary: var(--color-brand-700);
+    --app-action-hover: var(--color-brand-600);
+    --app-focus-ring: var(--color-brand-400);
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --app-bg-base: var(--color-brand-950);
+    --app-surface: var(--color-brand-900);
+    --app-surface-elevated: var(--color-brand-800);
+    --app-text-primary: var(--color-brand-50);
+    --app-text-secondary: var(--color-brand-200);
+    --app-text-muted: var(--color-brand-400);
+    --app-border-base: var(--color-brand-800);
+    --app-action-primary: var(--color-brand-700);
+    --app-action-hover: var(--color-brand-600);
+    --app-focus-ring: var(--color-brand-400);
+  }
+
+  html.light {
+    color-scheme: light;
+    --app-bg-base: #FFFFFF;
+    --app-surface: var(--color-brand-50);
+    --app-surface-elevated: #FFFFFF;
+    --app-text-primary: var(--color-brand-950);
+    --app-text-secondary: var(--color-brand-800);
+    --app-text-muted: var(--color-brand-600);
+    --app-border-base: var(--color-brand-200);
+    --app-action-primary: var(--color-brand-600);
+    --app-action-hover: var(--color-brand-700);
+    --app-focus-ring: var(--color-brand-400);
   }
   
   body {
-    @apply bg-bg-base text-text-primary font-sans antialiased;
+    @apply bg-bg-base text-text-primary font-sans antialiased transition-colors duration-300;
   }
-
-  /* Typography Scale base overrides if necessary. 
-     We are relying on Tailwind's default sans, which maps well to standard system fonts */
 }
 
 @layer utilities {
+  .reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
   /* Glassmorphism */
   .glass-surface {
     @apply bg-surface/50 backdrop-blur-md border border-brand-800/50 shadow-lg;
-    /* Fallback for browsers without backdrop-filter */
     @supports not (backdrop-filter: blur(1px)) {
       @apply bg-surface;
     }
