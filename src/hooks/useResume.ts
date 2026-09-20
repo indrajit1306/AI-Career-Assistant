@@ -1,18 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import { INITIAL_RESUME_DATA } from '../types/resume';
 import type { ResumeData } from '../types/resume';
-
-const STORAGE_KEY = 'aca_resume';
+import { safeGet, safeSet, STORAGE_KEYS } from '../utils/storage';
 
 export const useResume = () => {
   const [data, setData] = useState<ResumeData>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        return JSON.parse(saved);
-      }
-    } catch (e) {
-      console.warn('Failed to parse resume from local storage', e);
+    const saved = safeGet<ResumeData>(STORAGE_KEYS.RESUME);
+    if (saved) {
+      return saved;
     }
     return INITIAL_RESUME_DATA;
   });
@@ -53,12 +48,8 @@ export const useResume = () => {
   };
 
   const saveDraft = useCallback(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      setHasUnsavedChanges(false);
-    } catch (e) {
-      console.error('Failed to save resume draft', e);
-    }
+    safeSet(STORAGE_KEYS.RESUME, data);
+    setHasUnsavedChanges(false);
   }, [data]);
 
   // Auto-save functionality
