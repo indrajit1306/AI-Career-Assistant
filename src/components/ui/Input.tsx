@@ -20,6 +20,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           id={inputId}
           ref={ref}
+          maxLength={props.maxLength || 255}
           className={`w-full bg-surface border rounded-lg px-4 py-2.5 text-text-primary placeholder-text-muted focus-ring transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
             error ? 'border-error/50 focus:ring-error/50' : 'border-border-base hover:border-brand-700/50'
           } ${className}`}
