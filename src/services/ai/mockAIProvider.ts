@@ -14,6 +14,7 @@ import type {
   ResumeMatchInput,
   ResumeMatchResult,
 } from './aiTypes';
+import type { ChatInputPayload, ChatResultPayload } from '../../types/assistant';
 
 const MOCK_PROVIDER_NAME = 'MockAIProvider';
 const DEMO_NOTICE = 'Demo AI response — not connected to a real AI model.';
@@ -213,6 +214,77 @@ Thank you for considering my application. I look forward to the opportunity to d
 Sincerely,
 [Your Name]`,
       },
+    };
+  }
+
+  async chat(input: ChatInputPayload): Promise<AIResult<ChatResultPayload>> {
+    await simulateDelay(1500);
+    const lowercaseMessage = input.message.toLowerCase();
+
+    // Intent routing simulation
+    if (lowercaseMessage.includes('resume')) {
+      return {
+        success: true,
+        provider: MOCK_PROVIDER_NAME,
+        data: {
+          message: `[${DEMO_NOTICE}] It looks like you want help with your resume. I can help you improve specific sections or do a full review.`,
+          action: {
+            type: 'NAVIGATE',
+            label: 'Go to Resume Workspace'
+          },
+          suggestions: ['Improve my professional summary', 'Optimize for a specific job']
+        }
+      };
+    }
+    
+    if (lowercaseMessage.includes('job') || lowercaseMessage.includes('ats')) {
+      return {
+        success: true,
+        provider: MOCK_PROVIDER_NAME,
+        data: {
+          message: `[${DEMO_NOTICE}] I can help you analyze job descriptions and match your resume to them to improve your ATS score.`,
+          action: {
+            type: 'NAVIGATE',
+            label: 'Go to Job Analyzer'
+          },
+          suggestions: ['Analyze a new job description', 'Check my resume ATS score']
+        }
+      };
+    }
+
+    if (lowercaseMessage.includes('interview') || lowercaseMessage.includes('prepare')) {
+      return {
+        success: true,
+        provider: MOCK_PROVIDER_NAME,
+        data: {
+          message: `[${DEMO_NOTICE}] I can generate practice interview questions based on your resume and evaluate your answers.`,
+          action: {
+            type: 'NAVIGATE',
+            label: 'Start Interview Practice'
+          },
+          suggestions: ['Generate behavioral questions', 'Ask me technical questions']
+        }
+      };
+    }
+
+    // General fallback response
+    let generalMessage = `[${DEMO_NOTICE}] I am your AI Career Assistant. I can help you improve your resume, analyze jobs, check ATS compatibility, and practice for interviews. How can I assist you today?`;
+    
+    if (input.context) {
+       if (!input.context.hasResume) {
+          generalMessage += "\n\nI noticed you haven't set up your resume yet. That's a great place to start!";
+       } else if (input.context.savedJobsCount === 0) {
+          generalMessage += "\n\nYour resume is set up! Why don't we try analyzing a job description next?";
+       }
+    }
+
+    return {
+      success: true,
+      provider: MOCK_PROVIDER_NAME,
+      data: {
+        message: generalMessage,
+        suggestions: ['Review my resume', 'Analyze a job posting', 'Practice for an interview']
+      }
     };
   }
 }
