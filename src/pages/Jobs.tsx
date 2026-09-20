@@ -7,6 +7,7 @@ import type { Job } from '../types/job';
 import { useAIAnalyses } from '../hooks/useAIAnalyses';
 import { aiClient } from '../services/ai/aiClient';
 import { JobAnalysisPanel } from '../components/jobs/JobAnalysisPanel';
+import { safeGet, STORAGE_KEYS } from '../utils/storage';
 
 export const Jobs: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -15,17 +16,12 @@ export const Jobs: React.FC = () => {
   const { jobAnalyses, saveJobAnalysis } = useAIAnalyses();
 
   useEffect(() => {
-    try {
-      const storedJobs = localStorage.getItem('aca_jobs');
-      if (storedJobs) {
-        const parsed = JSON.parse(storedJobs);
-        setJobs(parsed);
-        if (parsed.length > 0 && !selectedJobId) {
-          setSelectedJobId(parsed[0].id);
-        }
+    const storedJobs = safeGet<Job[]>(STORAGE_KEYS.JOBS);
+    if (storedJobs) {
+      setJobs(storedJobs);
+      if (storedJobs.length > 0 && !selectedJobId) {
+        setSelectedJobId(storedJobs[0].id);
       }
-    } catch (e) {
-      console.error(e);
     }
   }, []);
 
