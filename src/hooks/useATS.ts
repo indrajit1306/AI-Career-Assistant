@@ -5,8 +5,7 @@ import type { AnalysisHistoryRecord, ATSAnalysisResult } from '../types/ats';
 import { useResume } from './useResume';
 import { runATSAnalysis } from '../utils/atsScoring';
 
-const JOBS_STORAGE_KEY = 'aca_jobs';
-const HISTORY_STORAGE_KEY = 'aca_analyses';
+import { safeGet, safeSet, STORAGE_KEYS } from '../utils/storage';
 
 export const useATS = () => {
   const { data: resumeData } = useResume();
@@ -20,30 +19,22 @@ export const useATS = () => {
 
   // Load jobs and history on mount
   useEffect(() => {
-    try {
-      const storedJobs = localStorage.getItem(JOBS_STORAGE_KEY);
-      let loadedJobs: Job[] = [];
-      if (storedJobs) {
-        loadedJobs = JSON.parse(storedJobs);
-      }
-      
-      // Inject MOCK_JOB if no jobs exist to allow testing Step 7
-      if (loadedJobs.length === 0) {
-        loadedJobs = [MOCK_JOB];
-        localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(loadedJobs));
-      }
-      setJobs(loadedJobs);
+    let loadedJobs = safeGet<Job[]>(STORAGE_KEYS.JOBS) || [];
+    
+    // Inject MOCK_JOB if no jobs exist to allow testing Step 7
+    if (loadedJobs.length === 0) {
+      loadedJobs = [MOCK_JOB];
+      safeSet(STORAGE_KEYS.JOBS, loadedJobs);
+    }
+    setJobs(loadedJobs);
 
-      if (loadedJobs.length > 0) {
-        setSelectedJobId(loadedJobs[0].id);
-      }
+    if (loadedJobs.length > 0) {
+      setSelectedJobId(loadedJobs[0].id);
+    }
 
-      const storedHistory = localStorage.getItem(HISTORY_STORAGE_KEY);
-      if (storedHistory) {
-        setHistory(JSON.parse(storedHistory));
-      }
-    } catch (e) {
-      console.error('Failed to parse local storage data for ATS', e);
+    const storedHistory = safeGet<AnalysisHistoryRecord[]>(STORAGE_KEYS.ANALYSES);
+    if (storedHistory) {
+      setHistory(storedHistory);
     }
   }, []);
 
@@ -68,7 +59,7 @@ export const useATS = () => {
       
       const newHistory = [historyRecord, ...history].slice(0, 50); // keep last 50
       setHistory(newHistory);
-      localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
+      safeSet(STORAGE_KEYS.ANALYSES, newHistory);
       
       setIsAnalyzing(false);
     }, 1500);
@@ -77,7 +68,7 @@ export const useATS = () => {
   const deleteHistory = useCallback((id: string) => {
     const newHistory = history.filter(h => h.id !== id);
     setHistory(newHistory);
-    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
+    safeSet(STORAGE_KEYS.ANALYSES, newHistory);
   }, [history]);
 
   const viewHistory = useCallback((id: string) => {
