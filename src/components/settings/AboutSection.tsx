@@ -27,6 +27,8 @@ export const AboutSection: React.FC = () => {
       <div className="mt-6 pt-6 border-t border-border-base flex gap-4">
         <a 
           href="#"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center text-sm text-text-secondary hover:text-text-primary transition-colors"
         >
           <Code size={16} className="mr-2" />
@@ -34,6 +36,8 @@ export const AboutSection: React.FC = () => {
         </a>
         <a 
           href="#"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center text-sm text-text-secondary hover:text-text-primary transition-colors"
         >
           <ExternalLink size={16} className="mr-2" />
