@@ -24,13 +24,17 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, onClose, ...
   useEffect(() => {
     if (!overlayRef.current || !drawerRef.current) return;
 
-    if (isOpen) {
-      gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out', display: 'block' });
-      gsap.to(drawerRef.current, { x: 0, duration: 0.4, ease: 'power3.out' });
-    } else {
-      gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, ease: 'power2.in', display: 'none' });
-      gsap.to(drawerRef.current, { x: '-100%', duration: 0.3, ease: 'power3.in' });
-    }
+    const ctx = gsap.context(() => {
+      if (isOpen) {
+        gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out', display: 'block' });
+        gsap.to(drawerRef.current, { x: 0, duration: 0.4, ease: 'power3.out' });
+      } else {
+        gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, ease: 'power2.in', display: 'none' });
+        gsap.to(drawerRef.current, { x: '-100%', duration: 0.3, ease: 'power3.in' });
+      }
+    });
+
+    return () => ctx.revert();
   }, [isOpen]);
 
   return (
