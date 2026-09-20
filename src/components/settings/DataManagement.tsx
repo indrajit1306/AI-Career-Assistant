@@ -1,30 +1,42 @@
 import React, { useState, useRef } from 'react';
 import { SettingsSection } from './SettingsSection';
-import { Database, Download, Upload, Trash2, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Database, Download, Upload, Trash2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { exportAllData, clearAllProjectStorage, safeSet, STORAGE_KEYS, ACA_DATA_VERSION } from '../../utils/storage';
+import { useToast } from '../../contexts/ToastContext';
 
 export const DataManagement: React.FC = () => {
-  const [importStatus, setImportStatus] = useState<{type: 'idle' | 'error' | 'success', msg: string}>({ type: 'idle', msg: '' });
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { addToast } = useToast();
 
   const handleExport = () => {
-    const dataStr = exportAllData();
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `aca_data_export_${new Date().toISOString().split('T')[0]}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
+    try {
+      setIsProcessing(true);
+      const dataStr = exportAllData();
+      const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = `aca_data_export_${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      addToast('Data exported successfully!', 'success');
+    } catch (e) {
+      addToast('Failed to export data.', 'error');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    setIsProcessing(true);
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
@@ -36,34 +48,38 @@ export const DataManagement: React.FC = () => {
           throw new Error("Invalid or incompatible backup file version.");
         }
 
-        // Restore data (skipping settings to avoid jarring UI changes mid-import, or we could include it)
         if (parsedData.resume) safeSet(STORAGE_KEYS.RESUME, parsedData.resume);
         if (parsedData.jobs) safeSet(STORAGE_KEYS.JOBS, parsedData.jobs);
         if (parsedData.atsAnalyses) safeSet(STORAGE_KEYS.ANALYSES, parsedData.atsAnalyses);
         if (parsedData.interviews) safeSet(STORAGE_KEYS.INTERVIEWS, parsedData.interviews);
         if (parsedData.assistantChat) safeSet(STORAGE_KEYS.ASSISTANT_CHAT, parsedData.assistantChat);
-        // We omit setting STORAGE_KEYS.SETTINGS directly here to prevent instant theme flashes,
-        // unless the user specifically wants settings imported too. We'll include it for completeness.
         if (parsedData.settings) safeSet(STORAGE_KEYS.SETTINGS, parsedData.settings);
 
-        setImportStatus({ type: 'success', msg: 'Data imported successfully. Reloading in 2 seconds...' });
+        addToast('Data imported successfully. Reloading...', 'success');
         
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1500);
 
       } catch (error: any) {
-        setImportStatus({ type: 'error', msg: error.message || 'Failed to parse backup file.' });
+        addToast(error.message || 'Failed to parse backup file.', 'error');
+        setIsProcessing(false);
       }
     };
+    reader.onerror = () => {
+      addToast('Error reading file.', 'error');
+      setIsProcessing(false);
+    };
     reader.readAsText(file);
-    // reset input
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleClearAll = () => {
     clearAllProjectStorage();
-    window.location.reload();
+    addToast('All data cleared.', 'info');
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   return (
@@ -92,12 +108,6 @@ export const DataManagement: React.FC = () => {
             <p className="text-xs text-text-secondary mt-1">
               Restore your career data from a previous JSON backup.
             </p>
-            {importStatus.type !== 'idle' && (
-              <div className={`mt-2 flex items-center text-xs ${importStatus.type === 'success' ? 'text-success' : 'text-error'}`}>
-                {importStatus.type === 'success' ? <CheckCircle2 size={14} className="mr-1" /> : <AlertTriangle size={14} className="mr-1" />}
-                {importStatus.msg}
-              </div>
-            )}
           </div>
           <div className="shrink-0">
             <input 
