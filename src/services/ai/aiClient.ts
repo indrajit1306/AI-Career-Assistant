@@ -14,6 +14,7 @@ import type {
   ResumeMatchInput,
   ResumeMatchResult,
 } from './aiTypes';
+import type { ChatInputPayload, ChatResultPayload } from '../../types/assistant';
 import { MockAIProvider } from './mockAIProvider';
 
 class AIClient implements AIProvider {
@@ -84,6 +85,13 @@ class AIClient implements AIProvider {
       return { success: false, error: 'Missing required parameters for cover letter generation.', provider: 'AIClient' };
     }
     return this.handleRequest('generateCoverLetter', () => this.provider.generateCoverLetter(input));
+  }
+
+  async chat(input: ChatInputPayload): Promise<AIResult<ChatResultPayload>> {
+    if (!input.message?.trim()) {
+      return { success: false, error: 'Message is required.', provider: 'AIClient' };
+    }
+    return this.handleRequest('chat', () => this.provider.chat(input));
   }
 }
 
