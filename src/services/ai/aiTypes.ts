@@ -1,5 +1,5 @@
 import type { ResumeData } from '../../types/resume';
-
+import type { ChatInputPayload, ChatResultPayload } from '../../types/assistant';
 
 export interface AIResult<T> {
   success: boolean;
@@ -103,4 +103,5 @@ export interface AIProvider {
   generateInterviewQuestions(input: InterviewQuestionInput): Promise<AIResult<InterviewQuestionResult>>;
   evaluateInterviewAnswer(input: InterviewEvaluationInput): Promise<AIResult<InterviewEvaluationResult>>;
   generateCoverLetter(input: CoverLetterInput): Promise<AIResult<CoverLetterResult>>;
+  chat(input: ChatInputPayload): Promise<AIResult<ChatResultPayload>>;
 }
