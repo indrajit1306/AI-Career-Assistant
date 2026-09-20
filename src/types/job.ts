@@ -5,6 +5,7 @@ export interface Job {
   description: string;
   url?: string;
   location?: string;
+  status?: 'saved' | 'applied' | 'interview' | 'offer' | 'rejected';
   createdAt: string;
   updatedAt: string;
 }
