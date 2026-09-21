@@ -52,20 +52,21 @@ export const useResume = () => {
     setHasUnsavedChanges(false);
   }, [data]);
 
-  // Auto-save functionality
-  useEffect(() => {
-    if (hasUnsavedChanges) {
-      const timeoutId = setTimeout(() => {
-        saveDraft();
-      }, 1000); // Auto-save after 1 second of inactivity
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [data, hasUnsavedChanges, saveDraft]);
+  // Manual save only - auto-save removed per user request
 
   const resetResume = useCallback(() => {
     setData(INITIAL_RESUME_DATA);
     setHasUnsavedChanges(true);
+  }, []);
+
+  const discardChanges = useCallback(() => {
+    const saved = safeGet<ResumeData>(STORAGE_KEYS.RESUME);
+    if (saved) {
+      setData(saved);
+    } else {
+      setData(INITIAL_RESUME_DATA);
+    }
+    setHasUnsavedChanges(false);
   }, []);
 
   return {
@@ -79,5 +80,6 @@ export const useResume = () => {
     setProjects,
     saveDraft,
     resetResume,
+    discardChanges,
   };
 };
