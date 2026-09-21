@@ -1,32 +1,94 @@
-# React + TypeScript + Vite
+# AI Career Assistant
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+An AI-powered career companion designed to help job seekers manage their career preparation in one place.
 
-Currently, two official plugins are available:
+The platform combines **resume building, ATS compatibility analysis, job tracking, job matching, and interview preparation** into a single modern workspace.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> **AI-powered career companion for resume building, ATS analysis, job matching, and interview preparation.**
 
-## React Compiler
+## Core Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Resume Builder & Editor
+* AI Resume Improvement (Currently uses a mock/demo provider)
+* Estimated ATS Compatibility Analysis
+* Job Description Analysis
+* Resume-to-Job Matching
+* Job Application Tracking
+* Interview Practice
+* AI Interview Question Generation (Currently uses a mock/demo provider)
+* AI Interview Answer Feedback (Currently uses a mock/demo provider)
+* Career Preparation Dashboard
+* Local Data Persistence (All data is securely saved in your browser's local storage)
+* Settings & Data Management
+* AI Career Assistant (Currently uses a mock/demo provider)
 
-## Expanding the Oxlint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* GSAP
+* Lucide React
+* LocalStorage
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Project Structure
+
+```text
+src/
+├── animations/
+├── assets/
+├── components/
+├── contexts/
+├── data/
+├── hooks/
+├── pages/
+├── services/
+├── styles/
+├── types/
+└── utils/
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Getting Started
+
+To install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
+```
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Environment Variables
+
+Check the `.env.example` file for available environment variables. To configure API keys for AI services (when migrating from the mock provider), create a `.env` or `.env.local` file and add your credentials.
+
+**Security Warning**: Real AI provider credentials must remain server-side in a production environment. Do not expose live secret keys to the client via Vite environment variables.
+
+## Security Notice
+
+* Never commit API keys.
+* Never expose AI provider secrets in frontend code.
+* Keep `.env` and `.env.local` files out of Git.
+* User-provided resume and job content should be treated as untrusted input.
+
+## Project Status
+
+**Status: V1 MVP / Active Development**
+
+The project is currently in active development. Please note that some AI functionalities (resume improvement, interview generation, AI chat) currently use a development/demo (mock) provider for testing and demonstration purposes.
+
+## License
+
+License: Not yet specified.
