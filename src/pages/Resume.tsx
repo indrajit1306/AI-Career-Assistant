@@ -12,8 +12,10 @@ import { SkillsForm } from '../components/resume/SkillsForm';
 import { ProjectsForm } from '../components/resume/ProjectsForm';
 import { ResumePreview } from '../components/resume/ResumePreview';
 import { animateFadeIn } from '../animations';
+import { safeSet, STORAGE_KEYS } from '../utils/storage';
+import { INITIAL_RESUME_DATA } from '../types/resume';
 
-export const Resume: React.FC = () => {
+export const Resume = () => {
   const {
     data,
     hasUnsavedChanges,
@@ -24,7 +26,8 @@ export const Resume: React.FC = () => {
     setSkills,
     setProjects,
     saveDraft,
-    resetResume
+    resetResume,
+    discardChanges
   } = useResume();
 
   const [showMobilePreview, setShowMobilePreview] = useState(false);
@@ -39,6 +42,7 @@ export const Resume: React.FC = () => {
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset your resume? All unsaved data will be lost.')) {
       resetResume();
+      safeSet(STORAGE_KEYS.RESUME, INITIAL_RESUME_DATA);
     }
   };
 
@@ -58,8 +62,8 @@ export const Resume: React.FC = () => {
         
         {/* Actions */}
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-          <Button variant="ghost" onClick={handleReset} className="flex items-center gap-2">
-            <RefreshCw size={16} /> New Resume
+          <Button variant="ghost" onClick={handleReset} className="flex items-center gap-2 text-error hover:text-error/90 hover:bg-error/10">
+            <RefreshCw size={16} /> Reset Resume
           </Button>
           <Button 
             variant="outline" 
@@ -68,6 +72,15 @@ export const Resume: React.FC = () => {
           >
             <Eye size={16} /> {showMobilePreview ? 'Edit Resume' : 'Preview Resume'}
           </Button>
+          {hasUnsavedChanges && (
+            <Button 
+              variant="outline" 
+              onClick={discardChanges} 
+              className="flex items-center gap-2"
+            >
+              Discard Changes
+            </Button>
+          )}
           <Button 
             variant="primary" 
             onClick={saveDraft} 
