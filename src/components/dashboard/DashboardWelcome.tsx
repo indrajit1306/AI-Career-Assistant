@@ -3,18 +3,22 @@ import { Heading } from '../ui/Heading';
 import { Button } from '../ui/Button';
 import { useResume } from '../../hooks/useResume';
 import { RefreshCw } from 'lucide-react';
-import { safeSet, STORAGE_KEYS } from '../../utils/storage';
-import { INITIAL_RESUME_DATA } from '../../types/resume';
+import { clearAllProjectStorage, STORAGE_KEYS } from '../../utils/storage';
 
 export const DashboardWelcome = () => {
-  const { data, resetResume } = useResume();
-  const hasContent = data.personalInfo.fullName !== '' || data.experience.length > 0;
+  const { data: resumeData } = useResume();
+  const hasResume = resumeData.personalInfo.fullName !== '' || resumeData.experience.length > 0;
+  
+  // Check if there is any data to reset
+  const hasAnyData = hasResume || 
+    localStorage.getItem(STORAGE_KEYS.JOBS) !== null || 
+    localStorage.getItem(STORAGE_KEYS.ANALYSES) !== null ||
+    localStorage.getItem(STORAGE_KEYS.INTERVIEWS) !== null;
 
   const handleReset = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (window.confirm('Are you sure you want to delete your saved resume?')) {
-      resetResume();
-      safeSet(STORAGE_KEYS.RESUME, INITIAL_RESUME_DATA);
+    if (window.confirm('Are you sure you want to reset all your data? This will clear your resume, saved jobs, ATS scores, and interview practice.')) {
+      clearAllProjectStorage();
       window.location.reload();
     }
   };
@@ -29,9 +33,9 @@ export const DashboardWelcome = () => {
       </div>
       <div className="flex flex-row flex-wrap gap-3 shrink-0">
         <Link to="/resume" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary rounded-lg">
-          <Button variant="primary">{hasContent ? 'Edit Resume' : 'Create Resume'}</Button>
+          <Button variant="primary">{hasResume ? 'Edit Resume' : 'Create Resume'}</Button>
         </Link>
-        {hasContent && (
+        {hasAnyData && (
           <Button variant="outline" onClick={handleReset} className="text-error hover:text-error/90 hover:bg-error/10 border-error/30">
             <RefreshCw size={16} className="mr-2" /> Reset Data
           </Button>
