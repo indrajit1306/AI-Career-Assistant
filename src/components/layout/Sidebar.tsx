@@ -10,16 +10,20 @@ import {
   LogOut
 } from 'lucide-react';
 import type { HTMLAttributes } from 'react';
+import { useResume } from '../../hooks/useResume';
 
 export interface SidebarProps extends HTMLAttributes<HTMLElement> {
   onNavigate?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ className = '', onNavigate, ...props }) => {
+  const { data } = useResume();
+  const hasResume = data.personalInfo.fullName !== '' || data.experience.length > 0;
+
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
     { name: 'AI Assistant', path: '/assistant', icon: <Bot size={20} /> },
-    { name: 'Resume', path: '/resume', icon: <FileText size={20} /> },
+    { name: hasResume ? 'Saved Resume' : 'Create Resume', path: '/resume', icon: <FileText size={20} /> },
     { name: 'Job Analyzer', path: '/jobs', icon: <Briefcase size={20} /> },
     { name: 'ATS Check', path: '/ats', icon: <CheckCircle size={20} /> },
     { name: 'Interview Prep', path: '/interview', icon: <MessageSquare size={20} /> },
