@@ -35,8 +35,8 @@ export const Landing: React.FC = () => {
           AI Career<span className="text-text-primary">Assist</span>
         </div>
         <div className="space-x-4 flex items-center">
-          <Link to="/dashboard" className="text-text-secondary hover:text-text-primary transition-colors font-medium">Sign In</Link>
-          <Link to="/dashboard">
+          <Link to="/login" className="text-text-secondary hover:text-text-primary transition-colors font-medium">Sign In</Link>
+          <Link to="/register">
             <Button variant="primary" className="rounded-full">Get Started</Button>
           </Link>
         </div>
@@ -54,7 +54,7 @@ export const Landing: React.FC = () => {
         </p>
 
         <div ref={ctaRef} className="mt-12 flex flex-col sm:flex-row gap-4 opacity-0 tilt-element">
-          <Link to="/dashboard">
+          <Link to="/register">
             <Button variant="primary" size="lg" className="rounded-full group px-8">
               Start Your Journey <ChevronRight className="group-hover:translate-x-1 transition-transform ml-2" size={20} />
             </Button>
