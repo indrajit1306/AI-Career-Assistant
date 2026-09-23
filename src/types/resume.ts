@@ -39,6 +39,9 @@ export interface Project {
 }
 
 export interface ResumeData {
+  id?: string;
+  name?: string;
+  updatedAt?: string;
   personalInfo: PersonalInfo;
   summary: string;
   experience: Experience[];
@@ -48,6 +51,9 @@ export interface ResumeData {
 }
 
 export const INITIAL_RESUME_DATA: ResumeData = {
+  id: '',
+  name: 'My Resume',
+  updatedAt: '',
   personalInfo: {
     fullName: '',
     professionalTitle: '',
@@ -64,3 +70,4 @@ export const INITIAL_RESUME_DATA: ResumeData = {
   skills: [],
   projects: [],
 };
+
