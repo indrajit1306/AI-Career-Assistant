@@ -13,11 +13,18 @@ import { Assistant } from './pages/Assistant';
 import Settings from './pages/Settings';
 import { ToastProvider } from './contexts/ToastContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { useSettings } from './hooks/useSettings';
+
+function AppEffects() {
+  useSettings();
+  return null;
+}
 
 function App() {
   return (
     <AuthProvider>
       <ToastProvider>
+        <AppEffects />
         <Router>
           <Routes>
             <Route path="/" element={<Landing />} />
