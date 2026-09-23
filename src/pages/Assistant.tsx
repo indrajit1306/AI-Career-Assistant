@@ -33,7 +33,7 @@ export const Assistant: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-2rem)] max-h-screen">
+    <div className="flex flex-col h-full">
       <div className="flex-shrink-0" ref={containerRef}>
         <AssistantHeader />
       </div>
