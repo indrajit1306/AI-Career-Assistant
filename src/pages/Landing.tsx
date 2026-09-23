@@ -1,16 +1,23 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { animateFadeIn, animateSlideUp, animateStagger } from '../animations';
-import { Sparkles, FileText, Briefcase, ChevronRight } from 'lucide-react';
+import { Sparkles, FileText, Briefcase, ChevronRight, Sun, Moon } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { GlassCard } from '../components/ui/GlassCard';
 import { Heading } from '../components/ui/Heading';
+import { useSettings } from '../hooks/useSettings';
 
 export const Landing: React.FC = () => {
   const headerRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
+  const { settings, updateSetting } = useSettings();
+
+  const toggleTheme = () => {
+    const newTheme = settings.theme === 'light' ? 'dark' : 'light';
+    updateSetting('theme', newTheme);
+  };
 
   useEffect(() => {
     if (headerRef.current) animateSlideUp(headerRef.current);
@@ -35,6 +42,14 @@ export const Landing: React.FC = () => {
           AI Career<span className="text-text-primary">Assist</span>
         </div>
         <div className="space-x-4 flex items-center">
+          <button 
+            onClick={toggleTheme}
+            className="p-2 mr-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary transition-colors"
+            aria-label={`Switch to ${settings.theme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Switch to ${settings.theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {settings.theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
           <Link to="/login" className="text-text-secondary hover:text-text-primary transition-colors font-medium">Sign In</Link>
           <Link to="/register">
             <Button variant="primary" className="rounded-full">Get Started</Button>
