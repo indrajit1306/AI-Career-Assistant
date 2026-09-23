@@ -72,12 +72,12 @@ export const ATSSelectors: React.FC<Props> = ({
           </select>
         </div>
 
-        <div className="flex flex-col gap-2 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto mt-4 md:mt-0">
           <Button 
             onClick={onAnalyze} 
             disabled={!selectedJobId || isAnalyzing}
             size="lg"
-            className="w-full min-w-[140px] flex gap-2"
+            className="w-full sm:w-auto min-w-[140px] flex gap-2"
           >
             {isAnalyzing ? (
               <>
@@ -96,7 +96,7 @@ export const ATSSelectors: React.FC<Props> = ({
             disabled={!selectedJobId || isMatchingAI}
             variant="outline"
             size="lg"
-            className="w-full min-w-[140px] flex gap-2 border-brand-500 text-brand-400 hover:bg-brand-500/10"
+            className="w-full sm:w-auto min-w-[140px] flex gap-2 border-brand-500 text-brand-400 hover:bg-brand-500/10"
           >
             {isMatchingAI ? (
               <>
