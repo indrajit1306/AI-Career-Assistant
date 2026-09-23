@@ -48,7 +48,9 @@ export const useResume = () => {
   };
 
   const saveDraft = useCallback(() => {
-    safeSet(STORAGE_KEYS.RESUME, data);
+    const updatedData = { ...data, updatedAt: new Date().toISOString() };
+    setData(updatedData);
+    safeSet(STORAGE_KEYS.RESUME, updatedData);
     setHasUnsavedChanges(false);
   }, [data]);
 
