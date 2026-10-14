@@ -70,7 +70,7 @@ export const animateHover = (element: Element | string, isHovering: boolean, opt
     y: isHovering ? -4 : 0,
     scale: isHovering ? 1.02 : 1,
     boxShadow: isHovering 
-      ? '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 0 15px rgba(56, 189, 248, 0.15)' 
+      ? '0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08), 0 0 18px rgba(52, 211, 153, 0.22)' 
       : '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
     duration: 0.3,
     ease: 'power2.out',
