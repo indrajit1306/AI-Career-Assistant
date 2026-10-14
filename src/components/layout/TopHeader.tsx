@@ -50,7 +50,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onMenuClick, isMenuOpen, .
           {settings.theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
         </button>
         <div className="flex items-center gap-2 text-brand-400 opacity-80">
-          <Sparkles size={16} />
+          <Sparkles size={16} className="text-amber-400" />
           <span className="text-sm font-medium hidden sm:inline-block">AI Workspace</span>
         </div>
       </div>

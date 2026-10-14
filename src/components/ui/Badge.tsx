@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from 'react';
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'brand';
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'brand' | 'gold';
 }
 
 export const Badge: React.FC<BadgeProps> = ({ 
@@ -18,6 +18,7 @@ export const Badge: React.FC<BadgeProps> = ({
     warning: 'bg-warning/10 text-warning border-warning/20',
     error: 'bg-error/10 text-error border-error/20',
     brand: 'bg-brand-900 text-brand-300 border-brand-700/50',
+    gold: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
   };
 
   return (

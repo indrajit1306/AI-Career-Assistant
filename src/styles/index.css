@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #F8FAFC;
-  --color-brand-100: #E0F2FE;
-  --color-brand-200: #BAE6FD;
-  --color-brand-300: #7DD3FC;
-  --color-brand-400: #38BDF8;
-  --color-brand-500: #0EA5E9;
-  --color-brand-600: #0284C7;
-  --color-brand-700: #1D4ED8;
-  --color-brand-800: #172554;
-  --color-brand-900: #0F172A;
-  --color-brand-925: #0F172A;
-  --color-brand-950: #020617;
+  --color-brand-50: #F2FBF6;
+  --color-brand-100: #DCFCE7;
+  --color-brand-200: #A7D9BC;
+  --color-brand-300: #6EE7B7;
+  --color-brand-400: #34D399;
+  --color-brand-500: #10B981;
+  --color-brand-600: #059669;
+  --color-brand-700: #0F3422;
+  --color-brand-800: #0D2E1F;
+  --color-brand-900: #061A10;
+  --color-brand-925: #04140C;
+  --color-brand-950: #020B06;
+
+  /* Luxury Gold / Amber accents */
+  --color-amber-300: #FCD34D;
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;
+  --color-amber-600: #D97706;
 
   /* Semantic Theme Variables mapped to utilities */
   --color-bg-base: var(--app-bg-base);
@@ -35,48 +41,60 @@
   :root {
     /* Default is dark */
     color-scheme: dark;
-    --app-bg-base: var(--color-brand-950);
-    --app-surface: var(--color-brand-900);
-    --app-surface-elevated: var(--color-brand-800);
-    --app-text-primary: var(--color-brand-50);
-    --app-text-secondary: var(--color-brand-200);
-    --app-text-muted: var(--color-brand-400);
-    --app-border-base: var(--color-brand-800);
-    --app-action-primary: var(--color-brand-700);
-    --app-action-hover: var(--color-brand-600);
-    --app-focus-ring: var(--color-brand-400);
+    --app-bg-base: #020B06;
+    --app-surface: #061A10;
+    --app-surface-elevated: #0D2E1F;
+    --app-text-primary: #F2FBF6;
+    --app-text-secondary: #A7D9BC;
+    --app-text-muted: #34D399;
+    --app-border-base: #103B27;
+    --app-action-primary: #0F3422;
+    --app-action-hover: #164A31;
+    --app-focus-ring: #34D399;
   }
 
   html.dark {
     color-scheme: dark;
-    --app-bg-base: var(--color-brand-950);
-    --app-surface: var(--color-brand-900);
-    --app-surface-elevated: var(--color-brand-800);
-    --app-text-primary: var(--color-brand-50);
-    --app-text-secondary: var(--color-brand-200);
-    --app-text-muted: var(--color-brand-400);
-    --app-border-base: var(--color-brand-800);
-    --app-action-primary: var(--color-brand-700);
-    --app-action-hover: var(--color-brand-600);
-    --app-focus-ring: var(--color-brand-400);
+    --app-bg-base: #020B06;
+    --app-surface: #061A10;
+    --app-surface-elevated: #0D2E1F;
+    --app-text-primary: #F2FBF6;
+    --app-text-secondary: #A7D9BC;
+    --app-text-muted: #34D399;
+    --app-border-base: #103B27;
+    --app-action-primary: #0F3422;
+    --app-action-hover: #164A31;
+    --app-focus-ring: #34D399;
   }
 
   html.light {
     color-scheme: light;
-    --app-bg-base: #FFFFFF;
-    --app-surface: var(--color-brand-50);
-    --app-surface-elevated: #FFFFFF;
-    --app-text-primary: var(--color-brand-950);
-    --app-text-secondary: var(--color-brand-800);
-    --app-text-muted: var(--color-brand-600);
-    --app-border-base: var(--color-brand-200);
-    --app-action-primary: var(--color-brand-600);
-    --app-action-hover: var(--color-brand-700);
-    --app-focus-ring: var(--color-brand-400);
+    --app-bg-base: #FBF9F5;
+    --app-surface: #FFFFFF;
+    --app-surface-elevated: #F4EFE6;
+    --app-text-primary: #061A10;
+    --app-text-secondary: #2D523E;
+    --app-text-muted: #4D7C62;
+    --app-border-base: #E3DDCF;
+    --app-action-primary: #0F3422;
+    --app-action-hover: #164A31;
+    --app-focus-ring: #10B981;
   }
   
   body {
     @apply bg-bg-base text-text-primary font-sans antialiased transition-colors duration-300;
+  }
+
+  html.dark body {
+    background-color: #020B06;
+    background-image: radial-gradient(ellipse at 50% 25%, #0d2e1f 0%, #061a10 50%, #020b06 100%);
+    background-attachment: fixed;
+  }
+
+  html.light body {
+    background-color: #FBF9F5;
+    background-image: radial-gradient(ellipse at 50% 25%, #FFFFFF 0%, #FAF7F2 60%, #F5F0E6 100%);
+    background-attachment: fixed;
   }
 }
 
@@ -88,16 +106,16 @@
     scroll-behavior: auto !important;
   }
   
-  /* Glassmorphism */
+  /* Glassmorphism with luxury forest green tones */
   .glass-surface {
-    @apply bg-surface/50 backdrop-blur-md border border-brand-800/50 shadow-lg;
+    @apply bg-surface/60 backdrop-blur-md border border-brand-800/60 shadow-lg;
     @supports not (backdrop-filter: blur(1px)) {
       @apply bg-surface;
     }
   }
 
   .glass-panel {
-    @apply bg-brand-950/40 backdrop-blur-xl border border-brand-700/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)];
+    @apply bg-brand-950/60 backdrop-blur-xl border border-brand-700/40 shadow-[0_12px_40px_rgba(0,0,0,0.5)];
     @supports not (backdrop-filter: blur(1px)) {
       @apply bg-brand-900;
     }
@@ -115,18 +133,36 @@
   
   .layered-depth {
     box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      0 4px 6px -1px rgba(0, 0, 0, 0.2),
+      0 2px 4px -1px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   .gradient-orb {
-    @apply absolute rounded-full opacity-20 blur-3xl pointer-events-none;
+    @apply absolute rounded-full opacity-25 blur-3xl pointer-events-none;
     background: radial-gradient(circle, var(--color-brand-400) 0%, transparent 70%);
   }
 
   /* Custom focus outline */
   .focus-ring {
     @apply focus:outline-none focus:ring-2 focus:ring-focus-ring focus:ring-offset-2 focus:ring-offset-bg-base;
+  }
+
+  /* Luxury Editorial Fonts */
+  .font-luxury-serif {
+    font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-luxury-sans {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Custom curved panel shadows */
+  .luxury-curve-shadow-left {
+    filter: drop-shadow(-8px 0px 14px rgba(0, 0, 0, 0.35));
+  }
+
+  .luxury-curve-shadow-right {
+    filter: drop-shadow(8px 0px 14px rgba(0, 0, 0, 0.35));
   }
 }

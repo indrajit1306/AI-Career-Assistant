@@ -38,13 +38,13 @@ export const Landing: React.FC = () => {
       <div className="gradient-orb w-[800px] h-[800px] bottom-[-400px] right-[-200px] opacity-10" />
 
       <nav className="container mx-auto px-6 py-6 flex justify-between items-center relative z-10">
-        <div className="text-2xl font-bold tracking-tighter text-text-secondary">
-          AI Career<span className="text-text-primary">Assist</span>
+        <div className="text-2xl font-bold tracking-tighter text-emerald-100 flex items-center gap-1">
+          <span>AI Career</span><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Assist</span>
         </div>
         <div className="space-x-4 flex items-center">
           <button 
             onClick={toggleTheme}
-            className="p-2 mr-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary transition-colors"
+            className="p-2 mr-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary transition-colors cursor-pointer"
             aria-label={`Switch to ${settings.theme === 'light' ? 'dark' : 'light'} mode`}
             title={`Switch to ${settings.theme === 'light' ? 'dark' : 'light'} mode`}
           >
@@ -60,7 +60,7 @@ export const Landing: React.FC = () => {
       <main className="container mx-auto px-6 pt-24 pb-16 flex flex-col items-center text-center relative z-10 perspective-container">
         <div ref={headerRef} className="opacity-0 tilt-element">
           <Heading level={1} className="text-5xl md:text-7xl max-w-4xl">
-            Elevate Your Career with <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-brand-500">AI Precision</span>
+            Elevate Your Career with <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-amber-300">AI Precision</span>
           </Heading>
         </div>
         
