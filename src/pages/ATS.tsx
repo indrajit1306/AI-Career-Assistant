@@ -74,7 +74,7 @@ export const ATS: React.FC = () => {
       <header className="mb-2">
         <div className="flex items-center gap-3 mb-2">
           <Heading level={1}>ATS Analyzer</Heading>
-          <span className="px-2.5 py-1 text-xs font-semibold bg-brand-500/20 text-brand-300 rounded-full border border-brand-500/30">
+          <span className="px-2.5 py-1 text-xs font-semibold bg-brand-500/10 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300 rounded-full border border-brand-500/30">
             Rule-Based Analysis
           </span>
         </div>
@@ -122,7 +122,7 @@ export const ATS: React.FC = () => {
       ) : (
         <GlassCard className="flex-1 flex items-center justify-center min-h-[400px]">
           <EmptyState 
-            icon={<FileSearch size={48} className="text-brand-400 opacity-80" />}
+            icon={<FileSearch size={48} className="text-brand-600 dark:text-brand-400" />}
             title="Ready to Analyze"
             description="Select a target job description above and click Analyze to see how well your resume matches the requirements."
           />
