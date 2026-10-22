@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heading } from '../components/ui/Heading';
 import { GlassCard } from '../components/ui/GlassCard';
 import { EmptyState } from '../components/ui/EmptyState';
+import { Button } from '../components/ui/Button';
 import { Briefcase, Loader2, Sparkles, Building2, MapPin } from 'lucide-react';
 import type { Job } from '../types/job';
 import { useAIAnalyses } from '../hooks/useAIAnalyses';
@@ -88,13 +89,15 @@ export const Jobs: React.FC = () => {
                   <div className="flex justify-between items-start mb-6">
                     <div>
                       <h2 className="text-2xl font-bold text-text-primary">{selectedJob.title}</h2>
-                      <p className="text-brand-400 font-medium text-lg mt-1">{selectedJob.company}</p>
+                      <p className="text-brand-600 dark:text-brand-400 font-medium text-lg mt-1">{selectedJob.company}</p>
                       <p className="text-text-muted text-sm mt-1">{selectedJob.location}</p>
                     </div>
-                    <button 
+                    <Button 
+                      variant="primary"
+                      size="sm"
                       onClick={handleAnalyze}
                       disabled={isAnalyzing}
-                      className="btn-primary py-2 px-4 flex items-center gap-2 text-sm whitespace-nowrap"
+                      className="flex items-center gap-2 whitespace-nowrap"
                     >
                       {isAnalyzing ? (
                         <>
@@ -107,7 +110,7 @@ export const Jobs: React.FC = () => {
                           Analyze Job Description
                         </>
                       )}
-                    </button>
+                    </Button>
                   </div>
                   
                   <div className="prose prose-invert max-w-none">
