@@ -38,8 +38,8 @@ export const Landing: React.FC = () => {
       <div className="gradient-orb w-[800px] h-[800px] bottom-[-400px] right-[-200px] opacity-10" />
 
       <nav className="container mx-auto px-6 py-6 flex justify-between items-center relative z-10">
-        <div className="text-2xl font-bold tracking-tighter text-emerald-100 flex items-center gap-1">
-          <span>AI Career</span><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Assist</span>
+        <div className="text-2xl font-bold tracking-tighter text-text-primary flex items-center gap-1">
+          <span>AI Career</span><span className="bg-gradient-to-r from-amber-500 to-amber-600 dark:from-amber-300 dark:to-amber-500 bg-clip-text text-transparent">Assist</span>
         </div>
         <div className="space-x-4 flex items-center">
           <button 
@@ -60,7 +60,7 @@ export const Landing: React.FC = () => {
       <main className="container mx-auto px-6 pt-24 pb-16 flex flex-col items-center text-center relative z-10 perspective-container">
         <div ref={headerRef} className="opacity-0 tilt-element">
           <Heading level={1} className="text-5xl md:text-7xl max-w-4xl">
-            Elevate Your Career with <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-amber-300">AI Precision</span>
+            Elevate Your Career with <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-amber-600 dark:from-emerald-300 dark:via-emerald-400 dark:to-amber-300">AI Precision</span>
           </Heading>
         </div>
         
@@ -78,7 +78,7 @@ export const Landing: React.FC = () => {
 
         <div ref={featuresRef} className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
           <GlassCard interactive padding="lg" className="text-left opacity-0 layered-depth">
-            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-400 border border-border-base">
+            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-border-base shadow-sm">
               <FileText size={24} />
             </div>
             <h3 className="text-xl font-semibold mb-3 text-text-primary">AI Resume Builder</h3>
@@ -86,7 +86,7 @@ export const Landing: React.FC = () => {
           </GlassCard>
 
           <GlassCard interactive padding="lg" className="text-left opacity-0 layered-depth">
-            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-400 border border-border-base">
+            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-border-base shadow-sm">
               <Briefcase size={24} />
             </div>
             <h3 className="text-xl font-semibold mb-3 text-text-primary">Job Analyzer</h3>
@@ -94,7 +94,7 @@ export const Landing: React.FC = () => {
           </GlassCard>
 
           <GlassCard interactive padding="lg" className="text-left opacity-0 layered-depth">
-            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-400 border border-border-base">
+            <div className="bg-surface w-12 h-12 rounded-lg flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 border border-border-base shadow-sm">
               <Sparkles size={24} />
             </div>
             <h3 className="text-xl font-semibold mb-3 text-text-primary">Interview Prep</h3>
