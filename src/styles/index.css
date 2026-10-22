@@ -108,16 +108,16 @@
   
   /* Glassmorphism with luxury forest green tones */
   .glass-surface {
-    @apply bg-surface/60 backdrop-blur-md border border-brand-800/60 shadow-lg;
+    @apply bg-surface/60 backdrop-blur-md border border-border-base dark:border-brand-800/60 shadow-lg;
     @supports not (backdrop-filter: blur(1px)) {
       @apply bg-surface;
     }
   }
 
   .glass-panel {
-    @apply bg-brand-950/60 backdrop-blur-xl border border-brand-700/40 shadow-[0_12px_40px_rgba(0,0,0,0.5)];
+    @apply bg-surface/90 dark:bg-brand-950/60 backdrop-blur-xl border border-border-base dark:border-brand-700/40 shadow-xl dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)];
     @supports not (backdrop-filter: blur(1px)) {
-      @apply bg-brand-900;
+      @apply bg-surface dark:bg-brand-900;
     }
   }
 
