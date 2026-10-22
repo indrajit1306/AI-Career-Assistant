@@ -16,7 +16,7 @@ export const AboutSection: React.FC = () => {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-text-secondary">Environment</span>
-          <span className="text-sm font-medium text-brand-400 bg-brand-500/10 px-2 py-1 rounded">Local Demo Mode</span>
+          <span className="text-sm font-medium text-brand-700 dark:text-brand-400 bg-brand-500/10 px-2 py-1 rounded">Local Demo Mode</span>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-text-secondary">Tech Stack</span>
