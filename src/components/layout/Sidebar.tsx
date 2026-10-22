@@ -36,8 +36,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '', onNavigate, ..
   return (
     <aside className={`w-64 bg-surface h-full flex-col border-r border-border-base flex ${className}`} {...props}>
       <div className="p-6">
-        <h1 className="text-2xl font-bold tracking-tight text-emerald-100 flex items-center gap-1">
-          <span>AI Career</span><span className="bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">Assist</span>
+        <h1 className="text-2xl font-bold tracking-tight text-text-primary flex items-center gap-1">
+          <span>AI Career</span><span className="bg-gradient-to-r from-amber-500 to-amber-600 dark:from-amber-300 dark:to-amber-500 bg-clip-text text-transparent">Assist</span>
         </h1>
       </div>
       
