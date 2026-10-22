@@ -29,13 +29,13 @@ export const ATSBreakdown: React.FC<Props> = ({ categories }) => {
                   <h4 className="font-medium text-text-primary">{cat.label}</h4>
                   <p className="text-xs text-text-muted mt-0.5">{cat.description}</p>
                 </div>
-                <div className="text-sm font-semibold text-brand-300">
+                <div className="text-sm font-semibold text-brand-700 dark:text-brand-300">
                   {cat.score} <span className="text-text-muted font-normal text-xs">/ {cat.maxScore}</span>
                 </div>
               </div>
               <div className="h-2 w-full bg-surface-elevated rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-brand-400 rounded-full transition-all duration-1000 ease-out"
+                  className="h-full bg-brand-500 dark:bg-brand-400 rounded-full transition-all duration-1000 ease-out"
                   style={{ width: `${percentage}%` }}
                 />
               </div>
