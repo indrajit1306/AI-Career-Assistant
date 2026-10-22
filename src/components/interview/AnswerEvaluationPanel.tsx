@@ -24,11 +24,11 @@ export const AnswerEvaluationPanel: React.FC<AnswerEvaluationPanelProps> = ({ ev
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
-            <h5 className="text-sm font-medium text-emerald-400">What you did well</h5>
+            <h5 className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">What you did well</h5>
             <ul className="space-y-2">
               {evaluation.strengths.map((strength, i) => (
                 <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                  <span className="text-emerald-400 mt-0.5">•</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 mt-0.5">•</span>
                   <span>{strength}</span>
                 </li>
               ))}
@@ -36,11 +36,11 @@ export const AnswerEvaluationPanel: React.FC<AnswerEvaluationPanelProps> = ({ ev
           </div>
 
           <div className="space-y-3">
-            <h5 className="text-sm font-medium text-amber-400">Areas for Improvement</h5>
+            <h5 className="text-sm font-semibold text-amber-700 dark:text-amber-400">Areas for Improvement</h5>
             <ul className="space-y-2">
               {evaluation.areasForImprovement.map((area, i) => (
                 <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                  <span className="text-amber-400 mt-0.5">•</span>
+                  <span className="text-amber-700 dark:text-amber-400 mt-0.5">•</span>
                   <span>{area}</span>
                 </li>
               ))}
@@ -52,11 +52,11 @@ export const AnswerEvaluationPanel: React.FC<AnswerEvaluationPanelProps> = ({ ev
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-border-base">
             {evaluation.missingAreas.length > 0 && (
               <div className="space-y-3">
-                <h5 className="text-sm font-medium text-emerald-400">Missing Areas</h5>
+                <h5 className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Missing Areas</h5>
                 <ul className="space-y-2">
                   {evaluation.missingAreas.map((missing, i) => (
                     <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                      <span className="text-emerald-400 mt-0.5">•</span>
+                      <span className="text-emerald-700 dark:text-emerald-400 mt-0.5">•</span>
                       <span>{missing}</span>
                     </li>
                   ))}
@@ -66,11 +66,11 @@ export const AnswerEvaluationPanel: React.FC<AnswerEvaluationPanelProps> = ({ ev
             
             {evaluation.concerns.length > 0 && (
               <div className="space-y-3">
-                <h5 className="text-sm font-medium text-red-400">Concerns</h5>
+                <h5 className="text-sm font-semibold text-red-700 dark:text-red-400">Concerns</h5>
                 <ul className="space-y-2">
                   {evaluation.concerns.map((concern, i) => (
                     <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                      <span className="text-red-400 mt-0.5">•</span>
+                      <span className="text-red-700 dark:text-red-400 mt-0.5">•</span>
                       <span>{concern}</span>
                     </li>
                   ))}
