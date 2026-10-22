@@ -51,7 +51,7 @@ export const RecentActivity = ({ activities }: RecentActivityProps) => {
           <div className="relative border-l border-border-base ml-3 space-y-6 pb-2">
             {activities.map((activity, idx) => (
               <div key={activity.id + idx} className="relative pl-6">
-                <div className="absolute -left-3 top-0.5 bg-surface-elevated border border-border-base rounded-full p-1 text-brand-400">
+                <div className="absolute -left-3 top-0.5 bg-surface-elevated border border-border-base rounded-full p-1 text-brand-600 dark:text-brand-400">
                   {getIcon(activity.type)}
                 </div>
                 <div>
