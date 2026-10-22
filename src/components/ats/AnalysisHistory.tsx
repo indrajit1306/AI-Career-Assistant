@@ -17,7 +17,7 @@ export const AnalysisHistory: React.FC<Props> = ({ history, onView, onDelete }) 
   return (
     <GlassCard padding="lg" className="mt-8">
       <Heading level={3} className="mb-6 flex items-center gap-2">
-        <Clock size={20} className="text-brand-400" /> Analysis History
+        <Clock size={20} className="text-brand-600 dark:text-brand-400" /> Analysis History
       </Heading>
 
       <div className="overflow-x-auto">
@@ -45,9 +45,9 @@ export const AnalysisHistory: React.FC<Props> = ({ history, onView, onDelete }) 
                 </td>
                 <td className="py-4 text-center">
                   <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs
-                    ${record.overallScore >= 80 ? 'bg-brand-400/20 text-brand-400' : 
-                      record.overallScore >= 60 ? 'bg-green-400/20 text-green-400' : 
-                      'bg-yellow-400/20 text-yellow-400'}`}
+                    ${record.overallScore >= 80 ? 'bg-brand-500/10 text-brand-700 dark:bg-brand-400/20 dark:text-brand-400' : 
+                      record.overallScore >= 60 ? 'bg-emerald-500/10 text-emerald-700 dark:bg-green-400/20 dark:text-green-400' : 
+                      'bg-amber-500/10 text-amber-700 dark:bg-yellow-400/20 dark:text-yellow-400'}`}
                   >
                     {record.overallScore}
                   </span>
@@ -57,7 +57,7 @@ export const AnalysisHistory: React.FC<Props> = ({ history, onView, onDelete }) 
                     <Button variant="ghost" size="sm" onClick={() => onView(record.id)} title="View Analysis">
                       <Eye size={16} />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => onDelete(record.id)} className="text-red-400 hover:text-red-300" title="Delete">
+                    <Button variant="ghost" size="sm" onClick={() => onDelete(record.id)} className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300" title="Delete">
                       <Trash2 size={16} />
                     </Button>
                   </div>
