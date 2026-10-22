@@ -14,7 +14,7 @@ export const OverviewStatCard = ({ icon, label, value, description, to }: Overvi
   const content = (
     <GlassCard interactive={!!to} padding="lg" className="flex flex-col h-full dash-card">
       <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-lg bg-surface border border-border-base text-brand-400">
+        <div className="p-2 rounded-lg bg-surface border border-border-base text-brand-600 dark:text-brand-400">
           {icon}
         </div>
         <h3 className="font-semibold text-text-secondary">{label}</h3>
