@@ -7,21 +7,21 @@ interface Props {
 
 export const ATSScoreCard: React.FC<Props> = ({ score }) => {
   let label = 'Needs Improvement';
-  let colorClass = 'text-red-400';
-  let bgClass = 'bg-red-400/10 border-red-400/20';
+  let colorClass = 'text-red-600 dark:text-red-400';
+  let bgClass = 'bg-red-500/10 border-red-500/20';
   
   if (score >= 80) {
     label = 'Strong Match';
-    colorClass = 'text-brand-400';
-    bgClass = 'bg-brand-400/10 border-brand-400/20';
+    colorClass = 'text-brand-700 dark:text-brand-400';
+    bgClass = 'bg-brand-500/10 border-brand-500/20';
   } else if (score >= 60) {
     label = 'Good Match';
-    colorClass = 'text-green-400';
-    bgClass = 'bg-green-400/10 border-green-400/20';
+    colorClass = 'text-emerald-700 dark:text-green-400';
+    bgClass = 'bg-emerald-500/10 border-emerald-500/20';
   } else if (score >= 40) {
     label = 'Developing';
-    colorClass = 'text-yellow-400';
-    bgClass = 'bg-yellow-400/10 border-yellow-400/20';
+    colorClass = 'text-amber-700 dark:text-yellow-400';
+    bgClass = 'bg-amber-500/10 border-amber-500/20';
   }
 
   return (
