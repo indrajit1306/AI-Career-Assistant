@@ -44,7 +44,7 @@ export const QuickActions = ({ readiness, hasActivity }: QuickActionsProps) => {
             className="flex items-center justify-between p-4 rounded-xl bg-surface border border-border-base hover:border-brand-500/50 hover:bg-surface-elevated transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action-primary"
           >
             <div className="flex items-center gap-3 text-text-primary">
-              <div className="text-brand-400">{action.icon}</div>
+              <div className="text-brand-600 dark:text-brand-400">{action.icon}</div>
               <span className="font-medium text-sm sm:text-base">{action.name}</span>
             </div>
             <ChevronRight size={18} className="text-text-secondary group-hover:translate-x-1 group-hover:text-text-primary transition-all flex-shrink-0" />
