@@ -23,7 +23,7 @@ export const AIAssistButton: React.FC<Props> = ({
       size="sm" 
       onClick={onClick} 
       disabled={disabled || isProcessing}
-      className={`flex items-center gap-2 border-brand-400/30 text-brand-400 hover:bg-brand-400/10 ${className}`}
+      className={`flex items-center gap-2 border-brand-500/30 dark:border-brand-400/30 text-brand-700 dark:text-brand-400 hover:bg-brand-500/10 dark:hover:bg-brand-400/10 ${className}`}
     >
       {isProcessing ? (
         <Loader2 size={16} className="animate-spin" />
