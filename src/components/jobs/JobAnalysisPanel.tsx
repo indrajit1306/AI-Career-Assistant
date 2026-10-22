@@ -11,7 +11,7 @@ export const JobAnalysisPanel: React.FC<Props> = ({ result }) => {
     <GlassCard padding="lg" className="space-y-6">
       <div className="flex justify-between items-center border-b border-surface-elevated pb-4">
         <h2 className="text-xl font-bold text-text-primary">AI Job Description Analysis</h2>
-        <span className="text-xs font-semibold px-2 py-1 bg-brand-500/20 text-brand-300 rounded border border-brand-500/30 uppercase tracking-wider">
+        <span className="text-xs font-semibold px-2 py-1 bg-brand-500/10 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300 rounded border border-brand-500/30 uppercase tracking-wider">
           AI Analysis
         </span>
       </div>
