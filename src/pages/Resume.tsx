@@ -82,7 +82,7 @@ export const Resume = () => {
           </div>
           <p className="text-text-secondary mt-1">
             {isEditing 
-              ? <><span className="text-brand-400 font-medium">Local draft — not connected to AI yet.</span></>
+              ? <><span className="text-brand-700 dark:text-brand-400 font-medium">Local draft — not connected to AI yet.</span></>
               : (isPreviewing ? 'Previewing your saved resume.' : 'Manage your saved resumes here.')}
           </p>
         </div>
