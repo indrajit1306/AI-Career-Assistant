@@ -14,7 +14,7 @@ export const ResumeMatchPanel: React.FC<Props> = ({ result }) => {
           <h2 className="text-xl font-bold text-text-primary">AI Resume Match Analysis</h2>
           <p className="text-xs text-text-muted mt-1">This is an AI-generated assessment, not a hiring prediction.</p>
         </div>
-        <span className="text-xs font-semibold px-2 py-1 bg-brand-500/20 text-brand-300 rounded border border-brand-500/30 uppercase tracking-wider">
+        <span className="text-xs font-semibold px-2 py-1 bg-brand-500/10 text-brand-700 dark:bg-brand-500/20 dark:text-brand-300 rounded border border-brand-500/30 uppercase tracking-wider">
           AI Analysis
         </span>
       </div>
@@ -23,7 +23,7 @@ export const ResumeMatchPanel: React.FC<Props> = ({ result }) => {
         <div>
           <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-3">Matching Skills</h3>
           {result.matchingSkills.length > 0 ? (
-            <ul className="list-disc pl-5 space-y-1 text-sm text-green-400">
+            <ul className="list-disc pl-5 space-y-1 text-sm text-emerald-700 dark:text-green-400">
               {result.matchingSkills.map((item, idx) => <li key={idx}>{item}</li>)}
             </ul>
           ) : (
@@ -34,7 +34,7 @@ export const ResumeMatchPanel: React.FC<Props> = ({ result }) => {
         <div>
           <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-3">Related Experience</h3>
           {result.relatedExperience.length > 0 ? (
-            <ul className="list-disc pl-5 space-y-1 text-sm text-green-400">
+            <ul className="list-disc pl-5 space-y-1 text-sm text-emerald-700 dark:text-green-400">
               {result.relatedExperience.map((item, idx) => <li key={idx}>{item}</li>)}
             </ul>
           ) : (
@@ -45,7 +45,7 @@ export const ResumeMatchPanel: React.FC<Props> = ({ result }) => {
         <div>
           <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-3">Missing Requirements</h3>
           {result.missingRequirements.length > 0 ? (
-            <ul className="list-disc pl-5 space-y-1 text-sm text-yellow-500">
+            <ul className="list-disc pl-5 space-y-1 text-sm text-amber-700 dark:text-yellow-400">
               {result.missingRequirements.map((item, idx) => <li key={idx}>{item}</li>)}
             </ul>
           ) : (
