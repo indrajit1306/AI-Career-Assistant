@@ -10,7 +10,7 @@ export const AIPreferences: React.FC = () => {
       icon={<Sparkles size={24} />}
     >
       <div className="bg-surface-elevated rounded-lg p-4 border border-border-base flex items-start space-x-4">
-        <div className="bg-brand-500/20 text-brand-400 p-2 rounded-full shrink-0">
+        <div className="bg-brand-500/10 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400 p-2 rounded-full shrink-0">
           <Sparkles size={20} />
         </div>
         <div>
