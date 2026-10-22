@@ -51,7 +51,7 @@ export const ATSSelectors: React.FC<Props> = ({
           ) : (
             <div className="w-full bg-surface-elevated border border-border-base border-dashed rounded-lg px-4 py-2.5 flex justify-between items-center text-text-secondary">
               <span className="text-sm">No jobs saved yet</span>
-              <Link to="/jobs" className="text-brand-400 text-sm hover:underline">Add a Job</Link>
+              <Link to="/jobs" className="text-brand-600 dark:text-brand-400 text-sm hover:underline">Add a Job</Link>
             </div>
           )}
         </div>
@@ -96,7 +96,7 @@ export const ATSSelectors: React.FC<Props> = ({
             disabled={!selectedJobId || isMatchingAI}
             variant="outline"
             size="lg"
-            className="w-full sm:w-auto min-w-[140px] flex gap-2 border-brand-500 text-brand-400 hover:bg-brand-500/10"
+            className="w-full sm:w-auto min-w-[140px] flex gap-2 border-brand-500 text-brand-700 dark:text-brand-400 hover:bg-brand-500/10"
           >
             {isMatchingAI ? (
               <>
