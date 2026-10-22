@@ -13,11 +13,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus-ring disabled:opacity-50 disabled:cursor-not-allowed';
     
     const variants = {
-      primary: 'bg-action-primary text-text-primary hover:bg-action-hover shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)] border border-emerald-500/30 hover:border-emerald-400/60',
+      primary: 'bg-action-primary text-white hover:bg-action-hover shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)] border border-emerald-500/30 hover:border-emerald-400/60 font-medium',
       secondary: 'bg-surface-elevated text-text-primary hover:bg-surface border border-border-base',
-      outline: 'bg-transparent text-text-primary border border-border-base hover:border-brand-400 hover:text-brand-300',
+      outline: 'bg-transparent text-text-primary border border-border-base hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-300',
       ghost: 'bg-transparent text-text-secondary hover:text-text-primary hover:bg-surface',
-      glass: 'glass-surface text-text-primary hover:bg-surface/70 border-brand-700/30 hover:border-brand-400/50',
+      glass: 'glass-surface text-text-primary hover:bg-surface/70 border-border-base dark:border-brand-700/30 hover:border-brand-500/50 dark:hover:border-brand-400/50',
     };
     
     const sizes = {
