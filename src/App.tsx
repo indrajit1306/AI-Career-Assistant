@@ -11,6 +11,7 @@ import { ATS } from './pages/ATS';
 import { Interview } from './pages/Interview';
 import { Assistant } from './pages/Assistant';
 import Settings from './pages/Settings';
+import { ScreenNavigator } from './components/layout/ScreenNavigator';
 import { ToastProvider } from './contexts/ToastContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { useSettings } from './hooks/useSettings';
@@ -44,6 +45,7 @@ function App() {
               </Route>
             </Route>
           </Routes>
+          <ScreenNavigator />
         </Router>
       </ToastProvider>
     </AuthProvider>
