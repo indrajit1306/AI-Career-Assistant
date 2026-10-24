@@ -28,7 +28,8 @@ export const ATS: React.FC = () => {
     history,
     deleteHistory,
     viewHistory,
-    resumeData
+    resumeData,
+    loadSampleJob
   } = useATS();
 
   const [isMatchingAI, setIsMatchingAI] = useState(false);
@@ -92,6 +93,7 @@ export const ATS: React.FC = () => {
         onRunAIMatch={handleRunAIMatch}
         isMatchingAI={isMatchingAI}
         resumeData={resumeData}
+        onLoadSampleJob={loadSampleJob}
       />
 
       {currentResult ? (
