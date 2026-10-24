@@ -39,7 +39,23 @@ interface ScreenItem {
 export const ScreenNavigator: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [position, setPosition] = useState<'center' | 'top' | 'bottom'>('center');
+  const [side, setSide] = useState<'right' | 'left'>(() => {
+    return (localStorage.getItem('screen_navigator_side') as 'right' | 'left') || 'right';
+  });
+  const [position, setPosition] = useState<'center' | 'top' | 'bottom'>(() => {
+    return (localStorage.getItem('screen_navigator_pos') as any) || 'center';
+  });
+
+  const handleSetSide = (newSide: 'right' | 'left') => {
+    setSide(newSide);
+    localStorage.setItem('screen_navigator_side', newSide);
+  };
+
+  const handleSetPosition = (newPos: 'center' | 'top' | 'bottom') => {
+    setPosition(newPos);
+    localStorage.setItem('screen_navigator_pos', newPos);
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, user, login, logout } = useAuth();
@@ -212,15 +228,21 @@ export const ScreenNavigator: React.FC = () => {
     bottom: 'bottom-20',
   };
 
+  const isRight = side === 'right';
+
   return (
     <>
-      {/* Floating Trigger Button on the Left Edge */}
+      {/* Floating Trigger Button on the Edge */}
       <div 
-        className={`fixed left-0 ${positionClasses[position]} z-[9990] transition-all duration-300`}
+        className={`fixed ${isRight ? 'right-0' : 'left-0'} ${positionClasses[position]} z-[9990] transition-all duration-300`}
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 pl-3 pr-3.5 py-2.5 bg-brand-900/95 dark:bg-brand-950/95 text-white rounded-r-2xl border-y border-r border-emerald-500/50 shadow-[0_6px_25px_rgba(16,185,129,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.55)] hover:pl-4 transition-all duration-200 cursor-pointer select-none group backdrop-blur-md"
+          className={`flex items-center gap-2 ${
+            isRight 
+              ? 'pl-3.5 pr-3 rounded-l-2xl border-y border-l hover:pr-4' 
+              : 'pl-3 pr-3.5 rounded-r-2xl border-y border-r hover:pl-4'
+          } py-2.5 bg-brand-900/95 dark:bg-brand-950/95 text-white border-emerald-500/50 shadow-[0_6px_25px_rgba(16,185,129,0.35)] hover:shadow-[0_8px_32px_rgba(16,185,129,0.55)] transition-all duration-200 cursor-pointer select-none group backdrop-blur-md`}
           title="Open Screen Switcher (Alt + S)"
           aria-label="Open Screen Switcher"
         >
@@ -240,7 +262,7 @@ export const ScreenNavigator: React.FC = () => {
 
       {/* Screen Switcher Flyout Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-start p-3 sm:p-6 overflow-hidden">
+        <div className={`fixed inset-0 z-[9999] flex items-center ${isRight ? 'justify-end' : 'justify-start'} p-3 sm:p-6 overflow-hidden`}>
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
@@ -249,7 +271,7 @@ export const ScreenNavigator: React.FC = () => {
           />
 
           {/* Modal Panel */}
-          <div className="relative z-10 w-full max-w-[420px] max-h-[92vh] bg-surface border border-border-base dark:border-brand-700/60 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl animate-in slide-in-from-left duration-200">
+          <div className={`relative z-10 w-full max-w-[420px] max-h-[92vh] bg-surface border border-border-base dark:border-brand-700/60 rounded-2xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl animate-in ${isRight ? 'slide-in-from-right' : 'slide-in-from-left'} duration-200`}>
             
             {/* Header */}
             <div className="p-4 sm:p-5 border-b border-border-base flex items-center justify-between bg-surface-elevated/40">
@@ -306,17 +328,29 @@ export const ScreenNavigator: React.FC = () => {
                   <span className="capitalize">{settings.theme}</span>
                 </button>
 
-                {/* Button position adjust */}
-                <select
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value as any)}
-                  className="bg-surface text-text-secondary border border-border-base rounded px-1.5 py-0.5 text-[11px] cursor-pointer focus:outline-none"
-                  title="Adjust floating button position"
-                >
-                  <option value="top">Top</option>
-                  <option value="center">Mid</option>
-                  <option value="bottom">Btm</option>
-                </select>
+                {/* Button side & position adjust */}
+                <div className="flex items-center gap-1">
+                  <select
+                    value={side}
+                    onChange={(e) => handleSetSide(e.target.value as any)}
+                    className="bg-surface text-text-secondary border border-border-base rounded px-1.5 py-0.5 text-[11px] cursor-pointer focus:outline-none"
+                    title="Floating button side"
+                  >
+                    <option value="right">Right</option>
+                    <option value="left">Left</option>
+                  </select>
+
+                  <select
+                    value={position}
+                    onChange={(e) => handleSetPosition(e.target.value as any)}
+                    className="bg-surface text-text-secondary border border-border-base rounded px-1.5 py-0.5 text-[11px] cursor-pointer focus:outline-none"
+                    title="Adjust vertical position"
+                  >
+                    <option value="top">Top</option>
+                    <option value="center">Mid</option>
+                    <option value="bottom">Btm</option>
+                  </select>
+                </div>
               </div>
             </div>
 
