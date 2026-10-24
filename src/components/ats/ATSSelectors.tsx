@@ -15,6 +15,7 @@ interface Props {
   onRunAIMatch: () => void;
   isMatchingAI: boolean;
   resumeData: ResumeData;
+  onLoadSampleJob?: () => void;
 }
 
 export const ATSSelectors: React.FC<Props> = ({ 
@@ -25,7 +26,8 @@ export const ATSSelectors: React.FC<Props> = ({
   isAnalyzing,
   onRunAIMatch,
   isMatchingAI,
-  resumeData
+  resumeData,
+  onLoadSampleJob
 }) => {
   return (
     <GlassCard padding="lg" className="mb-8">
@@ -49,9 +51,22 @@ export const ATSSelectors: React.FC<Props> = ({
               ))}
             </select>
           ) : (
-            <div className="w-full bg-surface-elevated border border-border-base border-dashed rounded-lg px-4 py-2.5 flex justify-between items-center text-text-secondary">
+            <div className="w-full bg-surface-elevated border border-border-base border-dashed rounded-lg px-4 py-2.5 flex flex-wrap justify-between items-center gap-2 text-text-secondary">
               <span className="text-sm">No jobs saved yet</span>
-              <Link to="/jobs" className="text-brand-600 dark:text-brand-400 text-sm hover:underline">Add a Job</Link>
+              <div className="flex items-center gap-3">
+                {onLoadSampleJob && (
+                  <button 
+                    type="button"
+                    onClick={onLoadSampleJob}
+                    className="text-xs font-medium text-brand-600 dark:text-brand-400 hover:underline cursor-pointer"
+                  >
+                    + Load Sample Job
+                  </button>
+                )}
+                <Link to="/jobs" className="text-xs font-medium text-brand-600 dark:text-brand-400 hover:underline">
+                  Manage Jobs
+                </Link>
+              </div>
             </div>
           )}
         </div>
