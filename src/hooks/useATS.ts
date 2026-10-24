@@ -19,23 +19,26 @@ export const useATS = () => {
 
   // Load jobs and history on mount
   useEffect(() => {
-    let loadedJobs = safeGet<Job[]>(STORAGE_KEYS.JOBS) || [];
-    
-    // Inject MOCK_JOB if no jobs exist to allow testing Step 7
-    if (loadedJobs.length === 0) {
-      loadedJobs = [MOCK_JOB];
-      safeSet(STORAGE_KEYS.JOBS, loadedJobs);
-    }
+    const loadedJobs = safeGet<Job[]>(STORAGE_KEYS.JOBS) || [];
     setJobs(loadedJobs);
 
     if (loadedJobs.length > 0) {
       setSelectedJobId(loadedJobs[0].id);
+    } else {
+      setSelectedJobId('');
     }
 
     const storedHistory = safeGet<AnalysisHistoryRecord[]>(STORAGE_KEYS.ANALYSES);
     if (storedHistory) {
       setHistory(storedHistory);
     }
+  }, []);
+
+  const loadSampleJob = useCallback(() => {
+    const loadedJobs = [MOCK_JOB];
+    setJobs(loadedJobs);
+    setSelectedJobId(MOCK_JOB.id);
+    safeSet(STORAGE_KEYS.JOBS, loadedJobs);
   }, []);
 
   const analyze = useCallback(() => {
@@ -94,6 +97,7 @@ export const useATS = () => {
     analyze,
     deleteHistory,
     viewHistory,
-    clearCurrentResult
+    clearCurrentResult,
+    loadSampleJob
   };
 };
